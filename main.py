@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib as plt
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("train.csv")
+df = pd.read_csv("test.csv")
 #lendo dados
 
 h =df.head(10)
