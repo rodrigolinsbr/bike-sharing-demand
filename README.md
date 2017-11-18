@@ -11,7 +11,11 @@ Data set
 
 Data train: [10886 rows x 12 columns]
 
+columns: [ datetime, season, holiday, workingday, weather, temp, atemp, humidity, windspeed, casual, registered, count ]
+
 Data test: [6493 rows x 9 columns]
+
+columns: [ datetime, season, holiday, workingday, weather, temp, atemp, humidity, windspeed ]
 
 Url: https://www.kaggle.com/c/bike-sharing-demand/data
 
