@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def seasonBarChart(df):
 	fig, ax = plt.subplots()
@@ -119,12 +120,6 @@ def daytypeByWeatherBar(df):
 	holiday_1 = holidays[(holidays['holiday']==1)]
 	holiday_1 = holiday_1['count'].values
 	
-	'''
-	print("holiday_0")
-	print(holiday_0)
-	print("holiday_1")
-	print(holiday_1)
-	'''
 	workingdays = df[['workingday', 'weather', 'count']]
 	grouped_workingdays = workingdays.groupby(["weather", "workingday"]).sum()
 	workingdays = pd.DataFrame(grouped_workingdays).reset_index()
@@ -233,6 +228,21 @@ def jointTemp(df):
 	plt.cla()
 	plt.clf()
 	plt.close()
+
+def correlationMatrix(df):
+	f, ax = plt.subplots(figsize=(10, 8))
 	
+	corr = df.corr()
+	
+	sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sns.diverging_palette(220, 10, as_cmap=True), square=True, ax=ax)
+	
+	plt.savefig("plots/correlationmatrix.png", bbox_inches='tight')
+	
+	plt.show()
+	plt.gcf().clear()
+	plt.cla()
+	plt.clf()
+	plt.close()
+
 df = pd.read_csv("train.csv")	
-seasonBarChart(df)
+correlationMatrix(df)
