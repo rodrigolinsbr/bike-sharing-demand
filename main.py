@@ -1,24 +1,24 @@
 import pandas as pd
 import numpy as np
-import matplotlib as plt
-import matplotlib.pyplot as plt
+import calendar
+from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
+from sklearn.model_selection import StratifiedKFold
 
-df = pd.read_csv("train.csv")
-#lendo dados
+train = pd.read_csv("train.csv")
 
-h =df.head(10)
-#mostrando data
-print  df
-d=df.describe()
-#descricao
+train_labels = train.count
 
-# name = df['Name'].value_counts()
-# sex = df['Survived'].hist(bins=100)
-# s=df['Survived'].hist(bins=50)
+del train['registered']
+del train['casual']
+del train['count']
 
+# Extracting new features from datetime in training set
+train.datetime = train.datetime.apply(pd.to_datetime)
+train['day'] = train.datetime.apply(lambda date: date.day)
+train['month'] = train.datetime.apply(lambda date: date.month)
+train['year'] = train.datetime.apply(lambda date: date.year)
+train['weekday'] = train.datetime.apply(lambda date: calendar.weekday(date.year, date.month, date.day))
+train['hour'] = train.datetime.apply(lambda date: date.hour)
 
-#plt.plot(str(sex))
-#plt.title("Muito Fcil")
-#plt.show()
-
+del train['datetime']
 
