@@ -6,6 +6,16 @@ from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from sklearn import preprocessing, pipeline, linear_model
 from sklearn.model_selection import train_test_split
 
+'''
+SUBMISSION FILE NAME
+'''
+submission_filename = 'test_submission.csv'
+
+'''
+MODEL NAMES: XGBRegressor, GradientBoostingRegressor, RandomForestRegressor, Lasso, LinearRegression
+'''
+model_name = 'XGBRegressor'
+
 
 # Extracting new features from datetime in training set
 def feature_engineering(dataset):
@@ -79,11 +89,16 @@ test_size = 0.33
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=test_size, random_state=42)
 
 # fit model in training data
-#model = XGBRegressor(max_depth=25, learning_rate=0.1, n_estimators=130)
-#model = GradientBoostingRegressor(max_depth = 25, learning_rate=0.1, n_estimators=130)
-model = RandomForestRegressor(max_depth = 25, n_estimators = 130, random_state = 0)
-#model = linear_model.Lasso(max_iter = 2000)
-#model = linear_model.LinearRegression()
+if model_name == 'XGBRegressor':
+    model = XGBRegressor(max_depth=25, learning_rate=0.1, n_estimators=130)
+elif model_name == 'GradientBoostingRegressor':
+    model = GradientBoostingRegressor(max_depth = 25, learning_rate=0.1, n_estimators=130)
+elif model_name == 'RandomForestRegressor':
+    model = RandomForestRegressor(max_depth = 25, n_estimators = 130, random_state = 0)
+elif model_name == 'Lasso':
+    model = linear_model.Lasso(max_iter = 2000)
+elif model_name == 'LinearRegression':
+    model = linear_model.LinearRegression()
 
 # creates a tranformer list
 transformer = populate_transformer(x_train)
@@ -124,4 +139,4 @@ submission = pd.DataFrame({"datetime": x_real_test_datetime,
 
 print submission.head(20)
 
-submission.to_csv('submission.csv', index=False)
+submission.to_csv('submissions/' + submission_filename, index=False)
