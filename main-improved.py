@@ -9,12 +9,12 @@ from sklearn.model_selection import train_test_split
 '''
 SUBMISSION FILE NAME
 '''
-submission_filename = 'XGBRegressor_submission.csv'
+submission_filename = 'RandomForestRegressor_improved_submission.csv'
 
 '''
 MODEL NAMES: XGBRegressor, GradientBoostingRegressor, RandomForestRegressor, Lasso, LinearRegression
 '''
-model_name = 'XGBRegressor'
+model_name = 'RandomForestRegressor'
 
 
 # Extracting new features from datetime in training set
@@ -80,6 +80,7 @@ def rmsle(y_true, y_pred):
 
 
 x_train = pd.read_csv("train.csv")
+x_train["count"] = np.log(x_train["count"])
 y_train = x_train['count']
 
 x_train = feature_engineering(x_train)
@@ -134,7 +135,7 @@ y_real_test_pred = estimator.predict(x_real_test)
 
 # writes output file for submission
 submission = pd.DataFrame({"datetime": x_real_test_datetime,
-                           "count": [max(0, x) for x in y_real_test_pred]},
+                           "count": [np.exp(x) for x in y_real_test_pred]},
                            columns=['datetime', 'count'])
 
 print submission.head(20)
