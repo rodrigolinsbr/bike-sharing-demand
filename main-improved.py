@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 '''
 SUBMISSION FILE NAME
 '''
-submission_filename = 'RandomForestRegressor_improved_submission.csv'
+submission_filename = 'RandomForestRegressor-notemp_improved_submission.csv'
 
 '''
 MODEL NAMES: XGBRegressor, GradientBoostingRegressor, RandomForestRegressor, Lasso, LinearRegression
@@ -46,7 +46,7 @@ def transform_feature_type(dataset):
     categorical_columns = ['season', 'weather', 'month', 'year', 'weekday']
     categorical_indices = np.array([(column in categorical_columns) for column in dataset.columns], dtype=bool)
 
-    numeric_columns = ['temp', 'atemp', 'humidity', 'windspeed', 'hour', 'day']
+    numeric_columns = ['temp', 'humidity', 'windspeed', 'hour', 'day']
     numeric_indices = np.array([(column in numeric_columns) for column in dataset.columns], dtype=bool)
 
     return binary_indices, categorical_indices, numeric_indices
